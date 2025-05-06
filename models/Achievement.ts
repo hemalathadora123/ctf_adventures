@@ -1,6 +1,6 @@
 import mongoose, { Document, Model } from 'mongoose';
 
-interface AchievementDocument extends Document {
+export interface AchievementDocument extends Document {
   ctfName: string;
   platform: string;
   challengeName: string;
