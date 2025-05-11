@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const tagSchema = new mongoose.Schema({
+  id: String,
   name: String,
   color: String
 });
@@ -16,7 +17,7 @@ const blogPostSchema = new mongoose.Schema({
   },
   excerpt: {
     type: String,
-    required: true
+    required: false
   },
   date: {
     type: Date,

@@ -1,6 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 
-const achievementSchema = new mongoose.Schema({
+export interface AchievementDocument extends Document {
+  ctfName: string;
+  platform: string;
+  challengeName: string;
+  category: 'Web' | 'Crypto' | 'Forensics' | 'Pwn' | 'Reverse' | 'Misc';
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  points: number;
+  solvedDate: Date;
+  writeupId?: mongoose.Types.ObjectId;
+}
+
+const achievementSchema = new mongoose.Schema<AchievementDocument>({
   ctfName: {
     type: String,
     required: true
@@ -40,4 +51,7 @@ const achievementSchema = new mongoose.Schema({
   timestamps: true
 });
 
-export default mongoose.models.Achievement || mongoose.model('Achievement', achievementSchema); 
+// Explicitly define the model type
+const Achievement: Model<AchievementDocument> = mongoose.models.Achievement || mongoose.model<AchievementDocument>('Achievement', achievementSchema);
+
+export default Achievement;
