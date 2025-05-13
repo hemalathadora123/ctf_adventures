@@ -70,6 +70,8 @@ export default function NewBlogPost() {
         images
       };
 
+      console.log('Sending post data:', newPost);
+
       const response = await fetch('/api/posts', {
         method: 'POST',
         headers: {
@@ -78,11 +80,17 @@ export default function NewBlogPost() {
         body: JSON.stringify(newPost),
       });
 
-      if (!response.ok) throw new Error('Failed to create post');
+      const responseData = await response.json();
+      
+      if (!response.ok) {
+        console.error('Server response:', responseData);
+        throw new Error(responseData.error || 'Failed to create post');
+      }
 
       router.push('/blog');
     } catch (error) {
       console.error('Error creating post:', error);
+      alert(error instanceof Error ? error.message : 'Failed to create post');
     } finally {
       setIsSubmitting(false);
     }
@@ -222,6 +230,17 @@ export default function NewBlogPost() {
                   onChange={(value) => setContent(value || '')}
                   height={400}
                   preview="edit"
+                  hideToolbar={false}
+                  enableScroll={true}
+                  textareaProps={{
+                    placeholder: 'Write your content here...',
+                    onKeyDown: (e) => {
+                      // Prevent the error by stopping propagation of certain key events
+                      if (e.key === 'Tab' || e.key === 'Enter') {
+                        e.stopPropagation();
+                      }
+                    }
+                  }}
                 />
               </div>
             </div>

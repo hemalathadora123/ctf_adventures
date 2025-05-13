@@ -17,6 +17,7 @@
     "autoprefixer": "^10.4.0",
     "cloudinary": "^2.6.0",
     "ctf-blog": "file:",
+    "mongo": "^0.1.0",
     "mongoose": "^8.14.1",
     "next": "^14.0.0",
     "postcss": "^8.4.0",
