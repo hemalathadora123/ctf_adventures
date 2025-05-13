@@ -18,7 +18,7 @@ export async function GET(
       );
     }
 
-    const post = await BlogPost.findById(params.id);
+    const post = await BlogPost.findById(params.id).exec();
     
     if (!post) {
       return NextResponse.json(
