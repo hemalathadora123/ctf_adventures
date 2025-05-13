@@ -55,7 +55,8 @@ export default function NewBlogPost() {
         title,
         content,
         excerpt: content.slice(0, 150) + '...',
-        date: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         author: {
           name: 'Xpl01tE4gl3',
           image: '/my-avatar.jpg'

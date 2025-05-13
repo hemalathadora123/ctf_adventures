@@ -106,19 +106,19 @@ export default function BlogPostPage() {
           <div className="prose prose-invert prose-cyan max-w-none">
             <ReactMarkdown
               components={{
-                code({node, inline, className, children, ...props}) {
+                code: ({ className, children }) => {
                   const match = /language-(\w+)/.exec(className || '')
-                  return !inline && match ? (
+                  const isInline = !match
+                  return !isInline ? (
                     <SyntaxHighlighter
                       style={atomDark}
                       language={match[1]}
                       PreTag="div"
-                      {...props}
                     >
                       {String(children).replace(/\n$/, '')}
                     </SyntaxHighlighter>
                   ) : (
-                    <code className={className} {...props}>
+                    <code className={className}>
                       {children}
                     </code>
                   )

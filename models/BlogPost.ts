@@ -1,4 +1,30 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
+
+interface ITag {
+  id?: string;
+  name?: string;
+  color?: string;
+}
+
+interface IBlogPost extends Document {
+  title: string;
+  content: string;
+  excerpt?: string;
+  date: Date;
+  author?: {
+    name: string;
+    image: string;
+  };
+  tags: ITag[];
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+  category: 'Web' | 'Crypto' | 'Forensics' | 'Pwn' | 'Reverse' | 'Misc';
+  images: Array<{
+    url: string;
+    caption: string;
+  }>;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const tagSchema = new mongoose.Schema({
   id: String,
@@ -46,4 +72,6 @@ const blogPostSchema = new mongoose.Schema({
   timestamps: true
 });
 
-export default mongoose.models.BlogPost || mongoose.model('BlogPost', blogPostSchema); 
+const BlogPost: Model<IBlogPost> = mongoose.models.BlogPost || mongoose.model<IBlogPost>('BlogPost', blogPostSchema);
+
+export default BlogPost; 

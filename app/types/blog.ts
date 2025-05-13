@@ -28,4 +28,8 @@ export interface BlogPost {
     name: string;
     image?: string;
   };
+  images?: Array<{
+    url: string;
+    caption?: string;
+  }>;
 } 
